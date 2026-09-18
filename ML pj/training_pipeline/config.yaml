@@ -1,0 +1,84 @@
+# ============================================================
+# Finger Millet Disease Detection — Training Configuration
+# ============================================================
+
+# --- Data ---
+data:
+  dataset_dir: "../dataset_pipeline/dataset_split"   # Must contain train/val/test subdirs
+  image_size: 224                                      # Input resolution (224x224)
+  batch_size: 32
+  prefetch_buffer: 4                                   # tf.data prefetch buffer size
+
+# --- Class Labels (must match folder names) ---
+classes:
+  disease:
+    - healthy_leaf
+    - blast_mild
+    - blast_moderate
+    - blast_severe
+    - leaf_blight_mild
+    - leaf_blight_moderate
+    - leaf_blight_severe
+    - rust_mild
+    - rust_moderate
+    - rust_severe
+    - smut_mild
+    - smut_moderate
+    - smut_severe
+    - stress_nutrient_deficiency
+    - stress_pest_damage
+    - stress_sunburn
+
+  # Derived severity labels (mapped from disease folder names)
+  severity:
+    - none        # healthy + stress classes
+    - mild
+    - moderate
+    - severe
+
+  # Derived stress-vs-disease binary flag
+  stress_flag:
+    - disease     # any *_mild / *_moderate / *_severe disease folder
+    - stress      # stress_* folders
+    - healthy     # healthy_leaf
+
+# --- Model ---
+model:
+  backbone: "MobileNetV3Small"      # Options: MobileNetV3Small, EfficientNetLite0
+  backbone_weights: "imagenet"
+  freeze_backbone_epochs: 5         # Freeze backbone for N epochs, then unfreeze
+  dropout_rate: 0.3
+  embedding_dim: 256                # Shared feature vector before heads
+
+# --- Training ---
+training:
+  epochs: 30
+  initial_lr: 1.0e-3                # Learning rate for head-only phase
+  finetune_lr: 1.0e-5               # Learning rate after unfreezing backbone
+  optimizer: "adam"
+  label_smoothing: 0.1
+
+  # Loss weights for each head (total loss = sum of weighted head losses)
+  loss_weights:
+    disease: 1.0
+    severity: 0.5
+    stress_flag: 0.3
+
+  # Early stopping
+  early_stopping:
+    monitor: "val_loss"
+    patience: 5
+    restore_best_weights: true
+
+  # Checkpointing
+  checkpoint:
+    save_dir: "./checkpoints"
+    save_best_only: true
+    monitor: "val_loss"
+
+# --- Export ---
+export:
+  saved_model_dir: "./exported_model"
+  tflite_output: "./exported_model/finger_millet_model.tflite"
+  quantize: true                     # Post-training INT8 quantization
+  target_size_mb: 10                 # Must stay under this
