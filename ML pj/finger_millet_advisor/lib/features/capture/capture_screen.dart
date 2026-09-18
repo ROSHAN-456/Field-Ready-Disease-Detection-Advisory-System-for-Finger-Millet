@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart' show cameras;
 import '../inference/inference_service.dart';
@@ -87,34 +87,48 @@ class _CaptureScreenState extends State<CaptureScreen>
     }
   }
 
-  Future<void> _captureAndAnalyze() async {
-    final ctrl = _controller;
-    if (ctrl == null || !ctrl.value.isInitialized || _isCapturing) return;
-
+  /// Shared method: run inference on [imagePath] and navigate to ResultScreen.
+  Future<void> _runDiagnosisAndNavigate(String imagePath) async {
+    if (_isCapturing) return;
     setState(() => _isCapturing = true);
 
     try {
-      // Capture the image
-      final XFile imageFile = await ctrl.takePicture();
-      debugPrint('Photo captured: ${imageFile.path}');
+      debugPrint('Running diagnosis on: $imagePath');
+
+      final result = await InferenceService.runDiagnosis(imagePath);
 
       if (!mounted) return;
 
-      // Run inference (stub for now — returns dummy data)
-      final result = await InferenceService.runDiagnosis(imageFile.path);
-
-      if (!mounted) return;
-
-      // Navigate to results screen
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => ResultScreen(
-            imagePath: imageFile.path,
+            imagePath: imagePath,
             diagnosisResult: result,
           ),
         ),
       );
+    } catch (e) {
+      debugPrint('Diagnosis error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Diagnosis failed: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isCapturing = false);
+    }
+  }
+
+  Future<void> _captureAndAnalyze() async {
+    final ctrl = _controller;
+    if (ctrl == null || !ctrl.value.isInitialized || _isCapturing) return;
+
+    try {
+      final XFile imageFile = await ctrl.takePicture();
+      debugPrint('Photo captured: ${imageFile.path}');
+      if (!mounted) return;
+      await _runDiagnosisAndNavigate(imageFile.path);
     } catch (e) {
       debugPrint('Capture error: $e');
       if (mounted) {
@@ -122,8 +136,29 @@ class _CaptureScreenState extends State<CaptureScreen>
           SnackBar(content: Text('Capture failed: $e')),
         );
       }
-    } finally {
-      if (mounted) setState(() => _isCapturing = false);
+    }
+  }
+
+  Future<void> _pickFromGallery() async {
+    if (_isCapturing) return;
+
+    try {
+      final XFile? pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+      );
+
+      if (pickedFile == null) return; // User cancelled
+      if (!mounted) return;
+
+      debugPrint('Gallery image selected: ${pickedFile.path}');
+      await _runDiagnosisAndNavigate(pickedFile.path);
+    } catch (e) {
+      debugPrint('Gallery pick error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Gallery pick failed: $e')),
+        );
+      }
     }
   }
 
@@ -312,16 +347,9 @@ class _CaptureScreenState extends State<CaptureScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Gallery (placeholder)
+                    // Gallery picker
                     IconButton(
-                      onPressed: () {
-                        // TODO: Pick from gallery
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Gallery picker — coming soon'),
-                          ),
-                        );
-                      },
+                      onPressed: _pickFromGallery,
                       icon: const Icon(Icons.photo_library_rounded),
                       color: Colors.white70,
                       iconSize: 28,

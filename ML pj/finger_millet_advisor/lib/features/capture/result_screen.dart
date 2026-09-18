@@ -39,9 +39,13 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   void initState() {
     super.initState();
-    _loadAdvisory();
-    _saveDiagnosis();
+    _initData();
     _computeGradCam();
+  }
+
+  Future<void> _initData() async {
+    await _loadAdvisory();
+    await _saveDiagnosis();
   }
 
   Future<void> _computeGradCam() async {

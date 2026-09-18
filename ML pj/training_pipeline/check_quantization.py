@@ -59,10 +59,8 @@ def main():
             # Keras Prediction
             k_preds = keras_model.predict(img_tensor, verbose=0)
             
-            # TFLite Prediction (Requires UINT8 [0..255] because of our export config)
+            # TFLite Prediction (float16 model accepts float32 input directly)
             tflite_input = img_tensor.numpy()
-            if input_details['dtype'] == np.uint8:
-                tflite_input = (tflite_input * 255.0).astype(np.uint8)
                 
             interpreter.set_tensor(input_details['index'], tflite_input)
             interpreter.invoke()

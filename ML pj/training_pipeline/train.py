@@ -88,16 +88,43 @@ def main():
         verbose=1,
     )
 
-    # ── Phase 2: Unfreeze backbone, fine-tune end-to-end ──
     print(f"\n[PHASE 2] Fine-tuning entire model for up to {total_epochs - freeze_epochs} more epochs...")
     unfreeze_backbone(model, config)
+
+    model.stop_training = False
+
+    callbacks_phase2 = [
+        keras.callbacks.EarlyStopping(
+            monitor=es_cfg["monitor"],
+            patience=es_cfg["patience"],
+            restore_best_weights=es_cfg["restore_best_weights"],
+            verbose=1,
+        ),
+        keras.callbacks.ModelCheckpoint(
+            filepath=os.path.join(checkpoint_dir, "best_model.keras"),
+            monitor=ck_cfg["monitor"],
+            save_best_only=ck_cfg["save_best_only"],
+            verbose=1,
+        ),
+        keras.callbacks.ReduceLROnPlateau(
+            monitor="val_loss",
+            factor=0.5,
+            patience=3,
+            min_lr=1e-7,
+            verbose=1,
+        ),
+        keras.callbacks.CSVLogger(
+            os.path.join(checkpoint_dir, "training_log_phase2.csv"),
+            append=False,
+        ),
+    ]
 
     model.fit(
         train_ds,
         validation_data=val_ds,
         initial_epoch=freeze_epochs,
         epochs=total_epochs,
-        callbacks=callbacks,
+        callbacks=callbacks_phase2,
         verbose=1,
     )
 

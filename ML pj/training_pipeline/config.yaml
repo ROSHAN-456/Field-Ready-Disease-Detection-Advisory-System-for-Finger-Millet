@@ -46,13 +46,13 @@ classes:
 model:
   backbone: "MobileNetV3Small"      # Options: MobileNetV3Small, EfficientNetLite0
   backbone_weights: "imagenet"
-  freeze_backbone_epochs: 5         # Freeze backbone for N epochs, then unfreeze
+  freeze_backbone_epochs: 2         # Freeze backbone for N epochs, then unfreeze
   dropout_rate: 0.3
   embedding_dim: 256                # Shared feature vector before heads
 
 # --- Training ---
 training:
-  epochs: 30
+  epochs: 20
   initial_lr: 1.0e-3                # Learning rate for head-only phase
   finetune_lr: 1.0e-5               # Learning rate after unfreezing backbone
   optimizer: "adam"

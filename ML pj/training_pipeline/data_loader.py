@@ -77,7 +77,7 @@ def _parse_image(file_path, label_disease, label_severity, label_stress, img_siz
     raw = tf.io.read_file(file_path)
     img = tf.image.decode_jpeg(raw, channels=3)
     img = tf.image.resize(img, [img_size, img_size])
-    img = tf.cast(img, tf.float32) / 255.0  # Normalize to [0, 1]
+    img = tf.cast(img, tf.float32)  # Keep [0, 255] — backbone has include_preprocessing=True
     return img, {
         "disease_head": label_disease,
         "severity_head": label_severity,
