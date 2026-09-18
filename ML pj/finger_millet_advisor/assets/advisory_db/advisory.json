@@ -3,96 +3,96 @@
     "default": {
       "recommendation": "Plant is healthy. Continue standard agronomic practices.",
       "dosage": "N/A",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "blast": {
     "mild": {
       "recommendation": "Early blast symptoms detected. Spray Tricyclazole or Propiconazole as a preventive measure.",
       "dosage": "0.6g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "moderate": {
       "recommendation": "Moderate blast infection. Apply systemic fungicides like Tricyclazole immediately and avoid excessive nitrogen.",
       "dosage": "0.6g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "severe": {
       "recommendation": "Severe blast infection. Immediate heavy chemical intervention required. Consider destroying heavily infected tillers to prevent spread.",
       "dosage": "1.0g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "leaf_blight": {
     "mild": {
       "recommendation": "Mild leaf blight. Spray Mancozeb or Copper Oxychloride.",
       "dosage": "2.5g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "moderate": {
       "recommendation": "Moderate leaf blight. Repeat spray of Mancozeb after 10-12 days.",
       "dosage": "2.5g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "severe": {
       "recommendation": "Severe leaf blight. Apply combination fungicides and ensure proper field drainage.",
       "dosage": "3.0g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "rust": {
     "mild": {
       "recommendation": "Early rust detected. Apply Wettable Sulphur or Mancozeb.",
       "dosage": "2.5g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "moderate": {
       "recommendation": "Moderate rust. Apply Propiconazole or Hexaconazole to halt spread.",
       "dosage": "1.0ml/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "severe": {
       "recommendation": "Severe rust. Immediate fungicidal spray required to salvage crop.",
       "dosage": "2.0ml/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "smut": {
     "mild": {
       "recommendation": "Mild smut. Rogue out infected earheads. Seed treatment is recommended for next season.",
       "dosage": "N/A",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "moderate": {
       "recommendation": "Moderate smut. Remove and burn infected panicles. Spray Carbendazim.",
       "dosage": "1.0g/L of water",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     },
     "severe": {
       "recommendation": "Severe smut. Crop yield will be heavily affected. Destroy infected plants immediately to reduce soil inoculum.",
       "dosage": "N/A",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "stress_nutrient_deficiency": {
     "default": {
       "recommendation": "Nutrient deficiency detected (likely Nitrogen). Apply Urea or NPK fertilizers as per soil test recommendations. No fungicide needed.",
       "dosage": "As per local soil health card",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "stress_pest_damage": {
     "default": {
       "recommendation": "Pest damage (chewing insects) detected. Apply appropriate insecticide like Chlorpyrifos or Neem oil.",
       "dosage": "2ml/L (Neem oil) or 1.5ml/L (Chemical)",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "stress_sunburn": {
     "default": {
       "recommendation": "Sunburn or drought stress detected. Ensure adequate irrigation and maintain soil moisture. No chemical treatment required.",
       "dosage": "N/A",
-      "source": "PLACEHOLDER — needs verification against real ICAR/KVK bulletins"
+      "source": "DRAFT — pending expert verification against ICAR/KVK bulletins"
     }
   },
   "fallback": {
