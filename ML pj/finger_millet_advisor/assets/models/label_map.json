@@ -1,0 +1,34 @@
+{
+  "disease": [
+    "healthy_leaf",
+    "blast_mild",
+    "blast_moderate",
+    "blast_severe",
+    "leaf_blight_mild",
+    "leaf_blight_moderate",
+    "leaf_blight_severe",
+    "rust_mild",
+    "rust_moderate",
+    "rust_severe",
+    "smut_mild",
+    "smut_moderate",
+    "smut_severe",
+    "stress_nutrient_deficiency",
+    "stress_pest_damage",
+    "stress_sunburn"
+  ],
+  "severity": [
+    "none",
+    "mild",
+    "moderate",
+    "severe"
+  ],
+  "stress_flag": [
+    "disease",
+    "stress",
+    "healthy"
+  ],
+  "metadata": {
+    "isPlaceholderModel": true
+  }
+}

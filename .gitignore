@@ -25,7 +25,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/build/lib/
 lib64/
 parts/
 sdist/
@@ -71,7 +71,7 @@ cover/
 dataset/
 datasets/
 data/
-models/
+/build/models/
 logs/
 
 # IDEs
